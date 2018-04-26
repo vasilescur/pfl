@@ -19,7 +19,7 @@ main(List<String> arguments) {
 
     List<String> fullSource = sourceFile.readAsLinesSync();
 
-    PflProgram program = new PflProgram(fullSource);
+    PflProgram program = new PflProgram.fromSourceLines(fullSource);
 
-    
+    program.parseDocumentStructure();
 }
