@@ -1,4 +1,5 @@
-import 'package:pfl/pfl.dart';
+import 'package:pfl/PflProgram.dart';
+import 'package:pfl/parser.dart';
 
 import 'dart:io';
 
@@ -21,5 +22,18 @@ main(List<String> arguments) {
 
     PflProgram program = new PflProgram.fromSourceLines(fullSource);
 
+    // Reads the body and footnote sections, prepares for parsing
     program.parseDocumentStructure();
+
+    // Parse the program
+    Parser parser = new Parser(program);
+    parser.parseToTree();
+
+    parser.resolveDelimiters();
+
+    // Evaluate the body
+    String evaluatedBody = parser.bodyElement.evaluate();
+
+    // Output the result
+    print(evaluatedBody);
 }

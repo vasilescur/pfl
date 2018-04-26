@@ -1,9 +1,9 @@
 /// Represents one node in the abstract syntax tree.
 abstract class Element {
-    List<Element> children;
+    List<Element> children = new List<Element>();
 
     String evaluate() {
-        String result;
+        String result = '';
 
         for (var child in children) {
             result += child.evaluate();
@@ -24,6 +24,9 @@ class PlainText extends Element {
     String evaluate() => text;
 }
 
+/// Root node for the AST. Represents the body of the document.
+class BodyElement extends Element {}
+
 enum ConstFunctionType {
     ABC, BEEP, DATE, RET, SPACE, TAB,
     TIME, VER, ZEN
@@ -40,7 +43,7 @@ class ConstFunction extends Element {
             case ConstFunctionType.ABC:
                 return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
                 break;
-            
+
             case ConstFunctionType.BEEP:
                 return '\a';    // (a)lert/bell character
                 break;
@@ -61,7 +64,7 @@ class ConstFunction extends Element {
             case ConstFunctionType.TAB:
                 return '\t';
                 break;
-            
+
             case ConstFunctionType.TIME:
                 var now = new DateTime.now();
                 return '${now.hour}-${now.minute}-${now.second}';
@@ -82,22 +85,58 @@ class ConstFunction extends Element {
     }
 }
 
-class Footnote {
+/// Pointer to a [Footnote].
+class Delimiter extends Element {
+    int targetId;
+
+    Footnote target;
+
+    Delimiter(this.targetId);
+
+    @override
+    String evaluate() {
+        return target.evaluate();
+    }
+}
+
+/// A footnote is an element that
+class Footnote extends Element {
     /// Footnote number, ex. [1]
     int id;
 
-    /// Number of times this footnote has been evaluated.
-    int index;
+    /// Number of times an attempt has been made to evaluate this footnote.
+    int index = 0;
+
+    /// Number of times this footnote has actually been evaluated.
+    int runIndex = 0;
 
     /// Maximum number of times this footnote is allowed to be evaluated.
     /// If this value is not specified, it should be [0], representing no upper limit for executions.
     int maxExecutions;
 
-    /// Minimum index before this footnot is allowed to be evaluated.
+    /// Minimum index before this footnote is allowed to be evaluated.
     /// If this value is not specified, it should be [0], representing no restriction.
     int enablePoint;
 
-    Footnote(this.id, [this.maxExecutions = 0, this.enablePoint = 0]) {
-        this.index = 0;
+    Footnote(this.id, this.maxExecutions, this.enablePoint);
+
+    @override
+    String evaluate() {
+        this.index++;
+
+        if ((runIndex >= maxExecutions && maxExecutions > 0) || index < enablePoint) {
+            // Not allowed to eval
+            return '';
+        }
+
+        runIndex++;
+
+        String result = '';
+
+        for (var child in children) {
+            result += child.evaluate();
+        }
+
+        return result;
     }
 }
