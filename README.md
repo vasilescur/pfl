@@ -2,6 +2,8 @@
 
 An interpreter for [Procedural Footnote Language](http://medievalcookery.com/dmmyers/pflspec.html), written in [Dart](https://www.dartlang.org/).
 
+Please note that this project is hugely Work-In-Progress and is nowhere near functional.
+
 ## Getting Started
 
 To get started with Procedural Footnote Language, first read the [language description](http://medievalcookery.com/dmmyers/pflspec.html).
