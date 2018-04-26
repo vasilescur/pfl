@@ -12,13 +12,11 @@ To get started with Procedural Footnote Language, first read the [language descr
 
 ### Installing
 
-Clone this repository, then run
+Clone this repository, then run the following command to evaluate your PFL document:
 
 ```bash
 dart bin/main.dart filename.pfl
 ```
-
-to evaluate your PFL document.
 
 ## License
 
