@@ -2,7 +2,7 @@
 
 An interpreter for [Procedural Footnote Language](http://dmmyers.com/pflspec.html), written in [Dart](https://www.dartlang.org/).
 
-Please note that this project is very much Work-In-Progress and is nowhere near functional.
+Please note that this project is still work-in-progress and some features may not work as expected.
 
 ## Getting Started
 
