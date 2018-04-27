@@ -1,5 +1,5 @@
 /// Represents one node in the abstract syntax tree.
-abstract class Element {
+class Element {
     List<Element> children = new List<Element>();
 
     String evaluate() {
@@ -26,64 +26,6 @@ class PlainText extends Element {
 
 /// Root node for the AST. Represents the body of the document.
 class BodyElement extends Element {}
-
-enum ConstFunctionType {
-    ABC, BEEP, DATE, RET, SPACE, TAB,
-    TIME, VER, ZEN
-}
-
-class ConstFunction extends Element {
-    ConstFunctionType type;
-
-    ConstFunction(this.type);
-
-    @override
-    String evaluate() {
-        switch (type) {
-            case ConstFunctionType.ABC:
-                return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-                break;
-
-            case ConstFunctionType.BEEP:
-                return '\a';    // (a)lert/bell character
-                break;
-
-            case ConstFunctionType.DATE:
-                var now = new DateTime.now();
-                return '${now.year}-${now.month}-${now.day}';
-                break;
-
-            case ConstFunctionType.RET:
-                return '\n';    // Carriage return
-                break;
-
-            case ConstFunctionType.SPACE:
-                return ' ';
-                break;
-
-            case ConstFunctionType.TAB:
-                return '\t';
-                break;
-
-            case ConstFunctionType.TIME:
-                var now = new DateTime.now();
-                return '${now.hour}-${now.minute}-${now.second}';
-                break;
-
-            case ConstFunctionType.VER:
-                //TODO
-                throw new UnimplementedError();
-                break;
-
-            case ConstFunctionType.ZEN:
-                return '';
-                break;
-
-            default:
-                throw new TypeError();
-        }
-    }
-}
 
 /// Pointer to a [Footnote].
 class Delimiter extends Element {

@@ -1,5 +1,5 @@
-[HS][RET][1]
+[1]
 [PFL1.0]
-[1:2] Hi ho! [1][2]
+[1:2] [ADD:1:[INDEX:1]] Hi ho! [1][2]
 [2:1:2] It’s off to work we go!
 [PFLEND]

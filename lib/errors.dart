@@ -60,6 +60,14 @@ class TooMuchInformation extends PflError {
 }
 
 
+/// Occurs when a function encounters an invalid value or 
+/// another error.
+class FunctionError extends PflError {
+    String errType() => "Function Error";
+    FunctionError(int lineNumber) : super(lineNumber);
+}
+
+
 /// Occurs when the footnote numbers in the FOOTNOTES section
 /// are not in sequential order.
 class FootnoteSequenceError extends PflError {

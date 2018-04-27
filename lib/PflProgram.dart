@@ -1,6 +1,8 @@
 import 'package:pfl/errors.dart';
 
 class PflProgram {
+    static const String pflVersion = '1.0';
+
     List<String> fullSource;
 
     String body;
@@ -18,7 +20,7 @@ class PflProgram {
             var line = fullSource[i];
 
             // Is this a footnote opening/closing tag line?
-            if (line == '[PFL1.0]') {
+            if (line == '[PFL$pflVersion]') {
                 reachedFootnoteOpening = true;
             } else if (line == '[PFLEND]') {
                 return;
@@ -27,7 +29,7 @@ class PflProgram {
             if (!reachedFootnoteOpening) {
                 body += '$line\n';
             } else {
-                if (line != "[PFL1.0]") {
+                if (line != "[PFL$pflVersion]") {
                     footnotes.add(line);
                 }
             }
@@ -41,10 +43,5 @@ class PflProgram {
         } else {    // Missing opening tag
             throw new NotAPflDocument();
         }
-    }
-
-    void execute() {
-        // TODO
-        throw new UnimplementedError();
     }
 }

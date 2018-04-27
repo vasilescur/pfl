@@ -1,4 +1,5 @@
 import 'package:pfl/elements.dart';
+import 'package:pfl/functions.dart';
 import 'package:pfl/errors.dart';
 import 'package:pfl/PflProgram.dart';
 
@@ -57,42 +58,134 @@ class Parser {
 
     void scanString(String str, Element targetElement) {
         bool inDelimiter = false;
-        String currentText = '';
-        String currentDelimText = '';
+        String plainTextStr = '';
+        String tagText = '';
+
+        int delimiterLevel = 0;
 
         for (int i = 0; i < str.length; i++) {
             if (inDelimiter) {
-                if (str[i] == ']') {   // End delimiter
-                    inDelimiter = false;
-                    var delimNum = int.parse(currentDelimText);
+                if (str[i] == ']') {
+                    delimiterLevel--;
 
-                    currentDelimText = '';
+                    if (delimiterLevel == 0) {
 
-                    Delimiter delimiter = new Delimiter(delimNum);
-                    targetElement.children.add(delimiter);
-                    delimiters.add(delimiter);
+                        inDelimiter = false;
+
+                        Element newElem = null;
+
+                        List<Element> params = null;
+
+                        if (tagText.contains(':')) {
+                            var paramStrings = getParams(tagText);
+                            params = new List<Element>();
+
+                            for (var paramString in paramStrings) {
+                                Element param = new Element();
+                                scanString(paramString, param);
+
+                                params.add(param);
+                            }
+                        }
+
+                        // Try each type of function
+                        // Parameter Functions
+                        if (tagText.startsWith('ADD')) {
+                            newElem = new AddFunction();
+                        } else if (tagText.startsWith('AND')) {
+                            newElem = new AndFunction();
+                        } else if (tagText.startsWith('ASCII')) {
+                            newElem = new AsciiFunction();
+                        } else if (tagText.startsWith('GT')) {
+                            newElem = new GTFunction();
+                        } else if (tagText.startsWith('HEX')) {
+                            newElem = new HexFunction();
+                        } else if (tagText.startsWith('IF')) {
+                            if (params.length == 2) {
+                                newElem = new IfFunction();
+                            } else if (params.length == 3) {
+                                newElem = new IfElseFunction();
+                            } else {
+                                print('params: $params');
+                                throw new Exception('Bad IF statement');
+                            }
+                        } else if (tagText.startsWith('INDEX')) {
+                            newElem = new IndexFunction();
+                            (newElem as IndexFunction).passFootnotes(footnotes);
+                        } else if (tagText.startsWith('IS')) {
+                            newElem = new IsFunction();
+                        } else if (tagText.startsWith('LEN')) {
+                            newElem = new LenFunction();
+                        } else if (tagText.startsWith('LT')) {
+                            newElem = new LTFunction();
+                        } else if (tagText.startsWith('NOT')) {
+                            newElem = new NotFunction();
+                        } else if (tagText.startsWith('ORD')) {
+                            newElem = new OrdFunction();
+                        } else if (tagText.startsWith('OR')) {
+                            newElem = new OrFunction();
+                        } else if (tagText.startsWith('SUB')) {
+                            newElem = new SubFunction();
+                        } else if (tagText.startsWith('XOR')) {
+                            newElem = new XorFunction();
+                        } 
+                        // Constant Functions
+                        else if ([
+                                'ABC', 'BEEP', 'DATE', 'FALSE', 'HS',
+                                'RET', 'SPACE', 'TAB', 'TIME',
+                                'TRUE', 'VER', 'ZEN'
+                            ].contains(tagText)) {
+                            newElem = new ConstFunction(tagText);
+                        } else {
+                            // The tag is a delimiter (Footnote reference)
+                            newElem = new Delimiter(int.parse(tagText));
+                            delimiters.add(newElem);
+                        }
+
+                        tagText = '';
+
+                        if (params != null) {
+                            (newElem as ParamFunction).parameters = params;
+                        }
+
+                        targetElement.children.add(newElem);
+                    } else {
+                        tagText += str[i];
+                    }
                 } else {
-                    currentDelimText += str[i];
+                    if (str[i] == '[') {
+                        delimiterLevel++;
+                    }
+                    
+                    tagText += str[i];
                 }
             } else {    // Not in delimiter
-                if (str[i] == '[') {   // Begin delimiter
-                    inDelimiter = true;
+                if (str[i] == '[') {   
 
-                    if (currentText.length > 0) {
-                        PlainText plainText = new PlainText(currentText);
-                        targetElement.children.add(plainText);
+                    if (delimiterLevel == 0) { // Begin delimiter
+                        inDelimiter = true;
+                        delimiterLevel++;
+
+                        if (plainTextStr.length > 0) {
+                            PlainText plainText = new PlainText(plainTextStr);
+                            targetElement.children.add(plainText);
+                        }
+
+                        plainTextStr = '';
+                    } else {
+                        delimiterLevel++;
+                        tagText+= str[i];
                     }
 
-                    currentText = '';
                 } else {
-                    currentText += str[i];
+                    plainTextStr += str[i];
                 }
             }   // inDelimiter
         }   // for
 
         if (!inDelimiter) {
-            if (currentText.length > 0) {
-                PlainText plainText = new PlainText(currentText);
+            if (plainTextStr.length > 0) {
+                PlainText plainText = new PlainText(plainTextStr);
                 targetElement.children.add(plainText);
             }
         }
@@ -110,5 +203,32 @@ class Parser {
 
             delimiter.target = targetFootnote;
         }        
+    }
+
+    static List<String> getParams(String line) {    // line ex.: ADD:[IF:[TRUE]:1:4]:[ADD:2:3]
+        List<String> parts = new List<String>();
+
+        int tagLevel = 0;
+        String currentPart = '';
+
+        for (int i = 0; i < line.length; i++) {
+            if (line[i] == ':') {
+                if (tagLevel == 0) {
+                    parts.add(currentPart);
+                    currentPart = '';
+                    continue;
+                }
+            } else if (line[i] == '[') {
+                tagLevel++;
+            } else if (line [i] == ']') {
+                tagLevel--;
+            }
+
+            currentPart += line[i];
+        }
+
+        parts.add(currentPart);
+
+        return parts.sublist(1);
     }
 }

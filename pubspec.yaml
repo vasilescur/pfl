@@ -1,6 +1,6 @@
 name: pfl
 description: An interpreter for Procedural Footnote Language
-version: 0.0.1
+version: 1.0.0
 author: Radu Vasilescu <vasilescur@gmail.com>
 
 environment:
