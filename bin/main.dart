@@ -9,7 +9,7 @@ main(List<String> arguments) {
     print('');
 
     if (arguments.length < 1) {
-        print('Invalid command. Syntax: dart bin/main.dart filename.pfl');
+        print('Usage: pfl filename.pfl');
         print('');
         exit(1);
     }

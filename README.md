@@ -14,10 +14,16 @@ To get started with Procedural Footnote Language, first read the [language descr
 
 ### Installing
 
-Clone this repository, then run the following command to evaluate your PFL document:
+Download the latest stable release of the PFL interpreter from the [Releases section](https://github.com/vasilescur/pfl/releases). Place the `pfl.exe` in a folder added to your `PATH`.
+
+**Important:** The PFL interpreter is currently only available for Windows, and is packaged using [dartbin](https://github.com/filiph/dartbin).
+
+### Usage
+
+To run a PFL program, execute the following command:
 
 ```bash
-dart bin/main.dart filename.pfl
+pfl filename.pfl
 ```
 
 ## License
