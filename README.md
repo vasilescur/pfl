@@ -37,8 +37,8 @@ pfl filename.pfl
 ```
 [1][2][3]
 [PFL1.0]
-[1:0:1] [INPUT]
-[2:0:1] [INPUT]
+[1:0:2] [INPUT]
+[2:0:2] [INPUT]
 [3] [ADD:[1]:[2]]
 [PFLEND]
 ```
@@ -47,7 +47,7 @@ pfl filename.pfl
 ```
 [1][2]
 [PFL1.0]
-[1:0:1] [INPUT]
+[1:0:2] [INPUT]
 [2] [PRIME:[1]]
 [PFLEND]
 ```
