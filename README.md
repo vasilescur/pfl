@@ -33,6 +33,25 @@ pfl filename.pfl
 [PFLEND]
 ```
 
+#### Adding two numbers
+```
+[1][2][3]
+[PFL1.0]
+[1:0:1] [INPUT]
+[2:0:1] [INPUT]
+[3] [ADD:[1]:[2]]
+[PFLEND]
+```
+
+#### Primality test
+```
+[1][2]
+[PFL1.0]
+[1:0:1] [INPUT]
+[2] [PRIME:[1]]
+[PFLEND]
+```
+
 #### The Twelve Days of Christmas
 
 ```
