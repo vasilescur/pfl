@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Added `[INPUT]` function.
+
 ## 1.0.1
 
 - Added `[PRIME:x]` function.

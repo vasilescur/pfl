@@ -3,6 +3,7 @@ import 'package:pfl/PflProgram.dart';
 import 'package:pfl/errors.dart';
 
 import 'dart:math';
+import 'dart:io';
 
 
 // ################# ParamFunctions ################# //
@@ -271,6 +272,10 @@ class ConstFunction extends Element {
 
             case 'HS':
                 return 'Hi, Sherry!';
+                break;
+
+            case 'INPUT':
+                return stdin.readLineSync();
                 break;
 
             case 'RET':

@@ -134,7 +134,7 @@ class Parser {
                         // Constant Functions
                         else if ([
                                 'ABC', 'BEEP', 'DATE', 'FALSE', 'HS',
-                                'RET', 'SPACE', 'TAB', 'TIME',
+                                'INPUT', 'RET', 'SPACE', 'TAB', 'TIME',
                                 'TRUE', 'VER', 'ZEN'
                             ].contains(tagText)) {
                             newElem = new ConstFunction(tagText);
