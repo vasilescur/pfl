@@ -124,6 +124,8 @@ class Parser {
                             newElem = new OrdFunction();
                         } else if (tagText.startsWith('OR')) {
                             newElem = new OrFunction();
+                        } else if (tagText.startsWith('PRIME')) {
+                            newElem = new PrimeFunction();
                         } else if (tagText.startsWith('SUB')) {
                             newElem = new SubFunction();
                         } else if (tagText.startsWith('XOR')) {

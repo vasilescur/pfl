@@ -11,7 +11,7 @@
             "request": "launch",
             "type": "dart",
             "args": [
-                "examples/hiho.pfl"
+                "examples/prime.pfl"
             ]
         }
     ]

@@ -2,6 +2,8 @@ import 'package:pfl/elements.dart';
 import 'package:pfl/PflProgram.dart';
 import 'package:pfl/errors.dart';
 
+import 'dart:math';
+
 
 // ################# ParamFunctions ################# //
 
@@ -179,6 +181,37 @@ class OrdFunction extends ParamFunction {
             default:
                 return number.toString() + suffixes[number % 10];
         }
+    }
+}
+
+/// Returns [true] if the input is a prime number, otherwise 
+/// returns [false].
+class PrimeFunction extends ParamFunction {
+    @override
+    String evaluate() {
+        int number = int.parse(parameters[0].evaluate());
+
+        if (number < 2) {
+            return 'false';
+        }
+
+        if (number == 2 || number == 3) {
+            return 'true';
+        }
+
+        if (number % 2 == 0 || number % 3 == 0) {
+            return 'false';
+        }
+
+        var sqrtN = sqrt(number) + 1;
+
+        for (var i = 6; i <= sqrtN; i += 6) {
+            if (number % (i - 1) == 0 || number % (i + 1) == 0) {
+                return 'false';
+            }
+        }
+
+        return 'true';
     }
 }
 

@@ -5,7 +5,7 @@ import 'dart:io';
 
 main(List<String> arguments) {
     print('Procedural Footnote Language Interpreter');
-    print('[Version 1.0.0] - (c) Radu Vasilescu, 2018.');
+    print('[Version 1.0.1] - (c) Radu Vasilescu, 2018.');
     print('');
 
     if (arguments.length < 1) {
