@@ -1,12 +1,12 @@
 # Procedural Footnote Language
 
-An interpreter for [Procedural Footnote Language](http://dmmyers.com/pflspec.html), written in [Dart](https://www.dartlang.org/).
+An interpreter for [Procedural Footnote Language](https://github.com/vasilescur/pfl/wiki/Procedural-Footnote-Language-Specification), written in [Dart](https://www.dartlang.org/).
 
 Please note that this project is still work-in-progress and some features may not work as expected.
 
 ## Getting Started
 
-To get started with Procedural Footnote Language, first read the [language description](http://dmmyers.com/pflspec.html).
+To get started with Procedural Footnote Language, first read the [language specification](https://github.com/vasilescur/pfl/wiki/Procedural-Footnote-Language-Specification).
 
 ### Installing
 
@@ -70,4 +70,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Daniel Myers, who drafted the initial language specification
+* Daniel Myers, who drafted the [original language specification](http://dmmyers.com/pflspec.html).
