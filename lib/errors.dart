@@ -1,5 +1,5 @@
 abstract class PflError implements Exception {
-    int lineNumber; //TODO
+    int lineNumber; //TODO: implement line numbers in error reporting
     String errType();
 
     PflError(this.lineNumber);
