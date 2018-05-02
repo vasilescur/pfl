@@ -1,0 +1,5 @@
+[1][2]
+[PFL1.0]
+[1:98] [SUB:100:[INDEX:1]] bottles of beer on the wall, [SUB:100:[INDEX:1]] bottles of beer.[RET]Take one down, pass it around, [IF:[GT:[SUB:99:[INDEX:1]]:1]:[SUB:99:[INDEX:1]] bottles:1 bottle] of beer on the wall.[RET][RET][1]
+[2] 1 bottle of beer on the wall, 1 bottle of beer.[RET]Take one down and pass it around, no more bottles of beer on the wall.[RET][RET]No more bottles of beer on the wall, no more bottles of beer.[RET]Go to the store and buy some more, 99 bottles of beer on the wall.[RET]
+[PFLEND]
