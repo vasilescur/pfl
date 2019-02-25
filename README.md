@@ -22,7 +22,15 @@ To run a PFL program, execute the following command:
 pfl filename.pfl
 ```
 
-### Sample PFL Programs
+## How it Works
+
+The interpeter uses a loose interpretation of an abstract syntax tree to evaluate the final result of the document.
+
+There is a class heirarchy of elements, each with an overriden `evaluate` method that, by default, evaluates all its children,
+concatenates the results, and returns. Therefore, since the root document is also one of these nodes, evaluation of the entire
+document is as simple as calling `evaluate` on the root document.
+
+## Sample PFL Programs
 
 #### Simple "Hello, world!"
 
