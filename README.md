@@ -27,8 +27,26 @@ pfl filename.pfl
 The interpeter uses a loose interpretation of an abstract syntax tree to evaluate the final result of the document.
 
 There is a class heirarchy of elements, each with an overriden `evaluate` method that, by default, evaluates all its children,
-concatenates the results, and returns. Therefore, since the root document is also one of these nodes, evaluation of the entire
-document is as simple as calling `evaluate` on the root document.
+concatenates the results, and returns:
+
+```dart
+/// Represents one node in the abstract syntax tree.
+class Element {
+    List<Element> children = new List<Element>();
+
+    String evaluate() {
+        String result = '';
+
+        for (var child in children) {
+            result += child.evaluate();
+        }
+
+        return result;
+    }
+}
+```
+
+Therefore, since the root document is also one of these nodes, evaluation of the entire document is as simple as calling `evaluate` on the root document.
 
 ## Sample PFL Programs
 
