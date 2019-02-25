@@ -118,6 +118,17 @@ A few more examples can be found in the `examples` directory.
 
 * Dart SDK - [install](https://www.dartlang.org/tools/sdk#install)
 
+### Releases
+
+#### Windows
+
+I built this back when I used Windows, so the release script is a `bat` file. It uses a Go program written by someone
+else to bundle the entire Dart VM and the interpreter into one massive `exe` file. I know this is a bad idea. 
+
+#### MacOS, Linux
+
+TODO: Add shebang line to main to allow running with implied interpreter `dart`
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
